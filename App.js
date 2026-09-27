@@ -41,6 +41,7 @@ export default function App() {
   "Abu Dhabi Grand Prix",
   "Australian Grand Prix",
 ];
+
   const activityTypes = ["Race", "Qualifying", "Free Practice 3", "Free Practice 2", "Free Practice 1", "Sprint"] 
   // Not all races have sprints. If they do have sprints, they swap FP3 with Sprint Quali
 
