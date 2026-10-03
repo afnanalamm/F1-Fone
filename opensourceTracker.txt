@@ -1,1 +1,93 @@
 Learnt about grid-style layout from https://medium.com/@kalebjdavenport/how-to-create-a-grid-layout-in-react-native-7948f1a6f949
+Cross-referenced with my previous, proper RNative project on component styling and data rendering etc etc, at https://github.com/afnanalamm/Hear
+
+Images:
+Imola - "Imola-track-layout.png:
+Imola Track layout image: https://upload.wikimedia.org/wikipedia/commons/4/42/Imola.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
+Description 	
+English: Track map of the Autodromo Internazionale Enzo e Dino Ferrari, known as the Imola Circuit. This shows the pre-2008 layout. For the 2008-present layout, see File:Imola 2009.svg
+Date 	29 July 2008
+Source 	Own work
+Author 	Will Pittenger
+
+I, the copyright holder of this work, hereby publish it under the following license:
+w:en:Creative Commons
+attribution
+This file is licensed under the Creative Commons Attribution 3.0 Unported license.
+
+    You are free:
+
+        to share – to copy, distribute and transmit the work
+        to remix – to adapt the work
+
+    Under the following conditions:
+
+        attribution – You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+
+Barcelona-Catalunya Catalunya Circuit image - "Catalunya-track-layout.png":
+GabrielStella (https://commons.wikimedia.org/wiki/File:Formula1_Circuit_Catalunya_2021.svg), „Formula1 Circuit Catalunya 2021“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+"Madring-layout.png":
+ GabrielStella, Cherkash (https://commons.wikimedia.org/wiki/File:Madring_(2026).svg), „Madring (2026)“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+"Sakhir-layout.png":
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Bahrain_International_Circuit--Grand_Prix_Layout.svg), „Bahrain International Circuit--Grand Prix Layout“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+"Jeddah-layout.png":
+ GabrielStella (https://commons.wikimedia.org/wiki/File:Jeddah_Street_Circuit_2021.svg), „Jeddah Street Circuit 2021“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+Melbourne:
+ AEPA Racing (https://commons.wikimedia.org/wiki/File:Albert_Park_Circuit_2021.svg), „Albert Park Circuit 2021“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Suzuka:
+  Will Pittenger (https://commons.wikimedia.org/wiki/File:Suzuka_circuit_map--2005.svg), „Suzuka circuit map--2005“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+Shanghai:
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Shanghai_International_Racing_Circuit_track_map.svg), „Shanghai International Racing Circuit track map“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+Miami:
+ GabrielStella (https://commons.wikimedia.org/wiki/File:Hard_Rock_Stadium_Circuit_2022.svg), „Hard Rock Stadium Circuit 2022“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+Monte Carlo:
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Monte_Carlo_Formula_1_track_map.svg), „Monte Carlo Formula 1 track map“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+ Montreal:
+  Will Pittenger (https://commons.wikimedia.org/wiki/File:Île_Notre-Dame_(Circuit_Gilles_Villeneuve).svg), „Île Notre-Dame (Circuit Gilles Villeneuve)“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+Spielberg:
+ I, User:HumanBodyPiloter5, created this SVG map as a derivative work based on the satellite image of the Spielberg circuit released by w:en:Planet Labs under CC-BY-SA 4.0 in 2018 (https://commons.wikimedia.org/wiki/File:Spielberg_bare_map_numbers_contextless_2021_corner_names.svg), „Spielberg bare map numbers contextless 2021 corner names“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+Silverstone:
+ Antoine266 (https://commons.wikimedia.org/wiki/File:Silverstone_Circuit_2020.png), „Silverstone Circuit 2020“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+
+PhilipTheLeftist (https://commons.wikimedia.org/wiki/File:Hungaroring2026.svg), „Hungaroring2026“, https://creativecommons.org/publicdomain/zero/1.0/legalcode 
+
+Will Pittenger (https://commons.wikimedia.org/wiki/File:Spa-Francorchamps_of_Belgium.svg), „Spa-Francorchamps of Belgium“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+ Anthony Alessio Tralongo (https://commons.wikimedia.org/wiki/File:Zandvoort_Circuit.png), „Zandvoort Circuit“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Monza_track_map.svg), „Monza track map“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+ HumanBodyPiloter5 (https://commons.wikimedia.org/wiki/File:Baku_Formula_One_circuit_map.svg), „Baku Formula One circuit map“, https://creativecommons.org/publicdomain/zero/1.0/legalcode 
+
+ Cherkash (https://commons.wikimedia.org/wiki/File:Marina_Bay_circuit_2023.svg), „Marina Bay circuit 2023“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Gustavo GirardelliOwn work This W3C-unspecified vector image was created with Inkscape . OpenStreetMap contributors (https://commons.wikimedia.org/wiki/File:Austin_circuit.svg), „Austin circuit“, https://creativecommons.org/licenses/by-sa/2.0/legalcode 
+
+ WL2392 (https://commons.wikimedia.org/wiki/File:Autodromo_Hermanos_Rodriguez_(National_Circuit_with_Foro_Sol).png), „Autodromo Hermanos Rodriguez (National Circuit with Foro Sol)“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Autódromo_José_Carlos_Pace_(AKA_Interlagos)_track_map.svg), „Autódromo José Carlos Pace (AKA Interlagos) track map“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+ Valentin JJ. (https://commons.wikimedia.org/wiki/File:2023_Las_Vegas_street_circuit.svg), „2023 Las Vegas street circuit“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Losail.svg: Will Pittenger derivative work: Gpmat (https://commons.wikimedia.org/wiki/File:Lusail_International_Circuit_2023.svg), „Lusail International Circuit 2023“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+  Anthony Alessio Tralongo (https://commons.wikimedia.org/wiki/File:Yas_Marina_Circuit.png), „Yas Marina Circuit“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Sepang.svg), „Sepang“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 
+
+ GabrielStella (https://commons.wikimedia.org/wiki/File:Autódromo_do_Algarve_F1_Sectors.svg), „Autódromo do Algarve F1 Sectors“, https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+
+ Will Pittenger (https://commons.wikimedia.org/wiki/File:Istanbul_park.svg), „Istanbul park“, https://creativecommons.org/licenses/by-sa/3.0/legalcode 

@@ -1,79 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View, Button, ScrollView, Modal, Alert} from 'react-native';
+import { Pressable, StyleSheet, Text, View, ScrollView, Modal, Alert} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import axios from 'axios'; // HTTP client for making API requests
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { gpNameFromMeeting } from '../../components/gpNames';
-import { raceSessionsByYear } from '../../components/raceSessionsByYear.js';
+import { sessionsByYear } from '../../components/sessionsByYear.js';
 import { Row, Col } from '../../components/RowColumn.js';
+import { Link, router } from 'expo-router';
+import { SessionSelector } from '../../components/SessionSelector'
 
 
 
 
-export default function Race() {
-  const [selectedYear, setSelectedYear] = useState('2026');
-  const [selectedGrandPrix, setSelectedGrandPrix] = useState('');
-  const [activityType, setActivityType] = useState('');
-  const [selectedMeetingKey, setSelectedMeetingKey] = useState('');
-  const [selectedSessionKey, setSelectedSessionKey] = useState('');
-
-  // Year -> object of session types, e.g. { 'Race': [...], 'Qualifying': [...] }
-  // Falls back to {} so an unknown year can't crash Object.keys below. Claud///..[]\[[e Start
-  const sessionsForYear = raceSessionsByYear[selectedYear] || {};
-
-  // The session types available for the chosen year ('Race', 'Sprint', etc.)
-  const activityTypes = Object.keys(sessionsForYear);
-
-  // The actual sessions for year + type, with cancelled ones removed.
-  // Falls back to [] until a type is picked, since activityType starts as ''.
-  const sessionsForActivity = (sessionsForYear[activityType] || [])
-    .filter((s) => !s.is_cancelled);
-
-  // Changing the year invalidates the type and session picks below it,
-  // so clear both. Otherwise you can end up holding a session_key
-  // that doesn't exist in the new year.
-  const handleYearChange = (year) => {
-    setSelectedYear(year);
-    setActivityType('');
-    setSelectedSessionKey('');
-  };
-
-  // Same idea one level down: a new session type clears the session pick.
-  const handleActivityChange = (type) => {
-    setActivityType(type);
-    setSelectedSessionKey('');
-  }; // C.la--- ude End
-
-  const [raceSelectorModalVisible, setRaceSelectorModalVisible] = useState(false)
+export default function App({navigation}) {
   
-  const launchRaceSelectorModal = async () => {
-    setRaceSelectorModalVisible(true) // reverse the current state of the visibility of modal
+  const [sessionSelectorModalVisible, setSessionSelectorModalVisible] = useState(false)
+  
+  const launchSessionSelectorModal = async () => {
+    setSessionSelectorModalVisible(true) // reverse the current state of the visibility of modal
 
   }
 
   const SESSION_INFO_API = "https://api.openf1.org/v1/sessions?";
 
-  const handleGetInfo = async () => {
+  const handleGetInfo = async (selectedSessionKey) => {
     try {
           // Without this, the request goes out as ?session_key= and returns junk
       if (!selectedSessionKey) {
         Alert.alert('Pick a session first');
         return null;
       }
-      const selected_race_info_response = await axios.get(`${SESSION_INFO_API}session_key=${selectedSessionKey}`); // get the selected race info from the server, and store everything as the request. Not to be confused with the required 'race data' as this variable also stores headers and stuff, whereas the next one doesn't
-      console.log(selected_race_info_response.data);
+      const session_info_response = await axios.get(`${SESSION_INFO_API}session_key=${selectedSessionKey}`); // get the selected session info from the server, and store everything as the request. Not to be confused with the required 'session data' as this variable also stores headers and stuff, whereas the next one doesn't
       console.clear();
-      const race_info_data = selected_race_info_response.data
-      console.log(race_info_data); // This is an array: [{...}]
+      const session_info_data = session_info_response.data
+      console.log(session_info_data); // This is an array: [{...}]
       
       // Access the first element of the array using [0]
-      if (race_info_data && race_info_data.length > 0) {
-        console.log(race_info_data[0].location); // Now targets the object inside, outputs: 2026
-        return race_info_data[0];            // Returns just the specific race object
+      if (session_info_data && session_info_data.length > 0) {
+        console.log(session_info_data[0].location);
+        // return session_info_data[0];            // Returns just the specific session object
       }
-
-      console.log("API response:", race_info_data);
-      return(race_info_data);
+      
+      setSessionSelectorModalVisible(false); // close the modal before leaving
+      router.push({
+        pathname: '/SessionInfo',
+        params: { apiData: JSON.stringify(session_info_data[0]) },
+      });
+      return(session_info_data);
     } catch (e) { 
       // error parameters to match the caught exception variable 'e'
       console.error("API Error:", e);
@@ -86,67 +59,11 @@ export default function Race() {
   <ScrollView contentContainerStyle={styles.contentContainer}>
       <StatusBar style="auto" />
 
-      <Modal
-          animationType="slide"
-          transparent={true}
-          visible={raceSelectorModalVisible}
-          allowSwipeDismissal={true}
-          onRequestClose={() => {
-            Alert.alert('Race session selected!');
-            setRaceSelectorModalVisible(false);
-          }}
-          >
-        <View style={styles.modalOverlay}>
-          <View style={styles.raceSelectorModal}>
-              <View style={styles.pickerContainer}>
-                {/* Year: Object.keys still works here, the top level is still keyed by year */}
-                <Picker selectedValue={selectedYear} onValueChange={handleYearChange}>
-                  {Object.keys(raceSessionsByYear).map((y) => (
-                    <Picker.Item key={y} label={y} value={y} />
-                  ))}
-                </Picker>
-
-                {/* Session type: new picker, built from the keys of the selected year */}
-                <Picker selectedValue={activityType} onValueChange={handleActivityChange}>
-                  {/* Placeholder so '' is a valid selection and the picker doesn't
-                      silently show the first real item while state says nothing is picked */}
-                  <Picker.Item label="Select session type" value="" />
-                  {activityTypes.map((type) => (
-                    <Picker.Item key={type} label={type} value={type} />
-                  ))}
-                </Picker>
-
-                {/* Specific session: same as before, but fed from the flattened list above */}
-                <Picker selectedValue={selectedSessionKey} onValueChange={setSelectedSessionKey}>
-                  <Picker.Item label="Select Grand Prix" value="" />
-                  {sessionsForActivity.map((s) => (
-                    <Picker.Item
-                      key={s.session_key}
-                      label={gpNameFromMeeting(s)}
-                      value={s.session_key}
-                    />
-                  ))}
-                </Picker>
-            
-                <Pressable 
-                  onPress={handleGetInfo}
-                  style={({ pressed }) => [
-                    {
-                      backgroundColor: pressed
-                        ? 'rgb(210, 230, 255)'
-                        : 'white'
-                    },
-                    styles.genericButton
-                  ]}>  
-                    <Text>Get Info</Text>
-                </Pressable>
-              </View>
-              <Pressable onPress={() => setRaceSelectorModalVisible(false)}>
-                <Text>Close</Text>
-              </Pressable>
-          </View>
-        </View>
-      </Modal>
+      <SessionSelector
+          visible={sessionSelectorModalVisible}
+          onClose={() => setSessionSelectorModalVisible(false)}
+          onGetInfo={handleGetInfo}
+      />
 
       <View style={styles.headerView}>
         <Text style={styles.headerText}> Hey there! Find the recent F1 info here!</Text> 
@@ -156,18 +73,25 @@ export default function Race() {
        <View style={styles.introButtonsView}>
         <Row>
           <Col span={1}>
-            <Pressable style={styles.introButton} onPress={launchRaceSelectorModal}>
-              <Text style={styles.introButtonText}>Session Info</Text></Pressable></Col>
+            <Pressable style={styles.introButton} onPress={launchSessionSelectorModal}>
+              <Text style={styles.introButtonText}>Session Info</Text>
+            </Pressable>
+          </Col>
           
           <Col span={1}>
             <Pressable style={styles.introButton}>
-              <Text style={styles.introButtonText}>Race Replay </Text></Pressable></Col>
+              <Text style={styles.introButtonText}>Session Replay </Text>
+            </Pressable>
+          </Col>
 
         </Row>
         <Row>
           <Col span={0.5}>
-            <Pressable style={styles.introButton}>
+            <Pressable style={styles.introButton} onPress={() => {router.replace('../ChampionshipInfo')}}>
               <Text style={styles.introButtonText}>Championship Info</Text></Pressable></Col>
+
+          <Col span={0.5}>
+            </Col>
               
         </Row>
       </View>
@@ -209,7 +133,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: "auto",
     height: 50,
     width: `90%`,
-    backgroundColor: '#736464`'
+    backgroundColor: '#736464',
   },
   row: {
     flexDirection: "row"
@@ -226,7 +150,10 @@ export const styles = StyleSheet.create({
     includeFontPadding: true,
     textAlign: 'center',
   },
-    "0.5col":  {
+  buttonPressed: {
+    backgroundColor: '#B80000',
+  },
+  "0.5col":  {
     backgroundColor:  "lightblue",
     borderColor:  "#fff",
     borderWidth:  1,
@@ -255,53 +182,5 @@ export const styles = StyleSheet.create({
     borderColor:  "#fff",
     flex:  4
   },
-  raceSelectorModal: {
-    width: '90%',
-    height: '80%',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 10,
-  },
-  modalOverlay: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  raceSelectorModal: {
-      width: '90%',
-      height: '80%',
-      // rest of your existing styles
-  },
-  pickerContainer: {
-    backgroundColor: '#fff',
-    width: '80%',
-    borderRadius: 8,
-    marginBottom: 20,
-  },
-  genericButton: {
-    minWidth: 190,
-    height: 58,
-    paddingHorizontal: 28,
-    backgroundColor: '#E10600',
-    borderRadius: 5,
-    overflow: 'hidden',
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 1,
-    borderColor: '#FF3B30',
-  },
-  buttonPressed: {
-    backgroundColor: '#B80000',
-  },
-
 
 });

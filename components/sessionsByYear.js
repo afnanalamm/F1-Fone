@@ -1,4 +1,4 @@
-export const raceSessionsByYear = {
+export const sessionsByYear = {
 
     2023: {
       'Practice 1': [
