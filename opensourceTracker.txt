@@ -1,0 +1,1 @@
+Learnt about grid-style layout from https://medium.com/@kalebjdavenport/how-to-create-a-grid-layout-in-react-native-7948f1a6f949
