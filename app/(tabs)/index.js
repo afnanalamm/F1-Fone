@@ -79,7 +79,7 @@ export default function App({navigation}) {
           </Col>
           
           <Col span={1}>
-            <Pressable style={styles.introButton}>
+            <Pressable style={styles.introButton} onPress={launchSessionSelectorModal}>
               <Text style={styles.introButtonText}>Session Replay </Text>
             </Pressable>
           </Col>

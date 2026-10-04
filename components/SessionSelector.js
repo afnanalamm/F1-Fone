@@ -85,7 +85,7 @@ export function SessionSelector({ visible, onClose, onGetInfo }) {
 
                     {/* Specific session: same as before, but fed from the flattened list above */}
                     <Picker selectedValue={selectedSessionKey} onValueChange={setSelectedSessionKey}>
-                    <Picker.Item label="Select Grand Prix" value="" />
+                    <Picker.Item label="Select Session" value="" />
                     {sessionsForActivity.map((s) => (
                         <Picker.Item
                         key={s.session_key}

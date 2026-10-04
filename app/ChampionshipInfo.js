@@ -4,7 +4,7 @@ import {Picker} from '@react-native-picker/picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios'; // HTTP client for making API requests
 import { useState } from 'react';
-import { gpNameFromMeeting } from '../components/gpNames';
+import { gpNameFromMeeting } from '../components/gpNames.js';
 import { raceSessionsByYear } from '../components/sessionsByYear.js';
 import { Row, Col } from '../components/RowColumn.js';
 
