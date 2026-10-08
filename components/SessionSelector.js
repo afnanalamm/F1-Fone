@@ -11,14 +11,12 @@ import { Link, router } from 'expo-router';
 
 // Props come from the parent (App): `visible` controls the modal, `onClose` hides it,
 // and `onGetInfo` receives the chosen session_key so the parent can run the API call.
-export function SessionSelector({ visible, onClose, onGetInfo }) {
+export function SessionSelector({ visible, onClose, destination }) {
     // The picker selections live here because only this component uses them.
 
 
     const [selectedYear, setSelectedYear] = useState('2026');
-    const [selectedGrandPrix, setSelectedGrandPrix] = useState('');
     const [activityType, setActivityType] = useState('');
-    const [selectedMeetingKey, setSelectedMeetingKey] = useState('');
     const [selectedSessionKey, setSelectedSessionKey] = useState('');
 
     // Year -> object of session types, e.g. { 'Race': [...], 'Qualifying': [...] }
@@ -52,17 +50,25 @@ export function SessionSelector({ visible, onClose, onGetInfo }) {
         onGetInfo(selectedSessionKey);
     };
 
+    const handleConfirm = () => {
+        if (!selectedSessionKey) {
+            Alert.alert('Pick a session first');
+        return;
+        }
+            onClose();
+            router.push({
+            pathname: destination,
+            params: { sessionKey: String(selectedSessionKey) }, // route params are strings
+        });
+    };   
     return (
         <Modal
-            animationType="slide"
-            transparent={true}
-            visible={visible}
-            allowSwipeDismissal={true}
-            onRequestClose={() => {
-                Alert.alert('Session selected!');
-                setSessionSelectorModalVisible(false);
-            }}
-            >
+        animationType="slide"
+        transparent={true}
+        visible={visible}
+        onRequestClose={onClose}
+        >
+            
             <View style={styles.modalOverlay}>
             <View style={styles.sessionSelectorModal}>
                 <View style={styles.pickerContainer}>
@@ -96,7 +102,7 @@ export function SessionSelector({ visible, onClose, onGetInfo }) {
                     </Picker>
                 
                     <Pressable 
-                    onPress={handleGetInfo}
+                    onPress={handleConfirm}
                     style={({ pressed }) => [
                         {
                         backgroundColor: pressed

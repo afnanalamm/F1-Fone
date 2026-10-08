@@ -7,7 +7,7 @@ export default function TabLayout() {
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>Race</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="flag.pattern.checkered" md="sport_score" />
+        <NativeTabs.Trigger.Icon sf="flag.pattern.checkered" md="flag" />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="Settings">
         <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>

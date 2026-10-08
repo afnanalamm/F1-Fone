@@ -4,8 +4,8 @@ import { ScrollView, View, Text, StyleSheet } from "react-native"
 
 
 export const Row = ({ children }) => (
-    <View style={styles.row}>{children}</View>
-  )
+  <View style={styles.row}>{children}</View>
+)
 
 export const Col = ({ span, children }) => {
   return  (

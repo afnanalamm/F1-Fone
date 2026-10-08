@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View, ScrollView, Modal, Alert} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import axios from 'axios'; // HTTP client for making API requests
+
 import React, { useState, useEffect } from 'react';
 import { gpNameFromMeeting } from '../../components/gpNames';
 import { sessionsByYear } from '../../components/sessionsByYear.js';
@@ -12,57 +12,26 @@ import { SessionSelector } from '../../components/SessionSelector'
 
 
 
+
 export default function App({navigation}) {
   
   const [sessionSelectorModalVisible, setSessionSelectorModalVisible] = useState(false)
-  
-  const launchSessionSelectorModal = async () => {
-    setSessionSelectorModalVisible(true) // reverse the current state of the visibility of modal
+  const [selectorVisible, setSelectorVisible] = useState(false);
+  const [destination, setDestination] = useState('/SessionInfo');
 
-  }
-
-  const SESSION_INFO_API = "https://api.openf1.org/v1/sessions?";
-
-  const handleGetInfo = async (selectedSessionKey) => {
-    try {
-          // Without this, the request goes out as ?session_key= and returns junk
-      if (!selectedSessionKey) {
-        Alert.alert('Pick a session first');
-        return null;
-      }
-      const session_info_response = await axios.get(`${SESSION_INFO_API}session_key=${selectedSessionKey}`); // get the selected session info from the server, and store everything as the request. Not to be confused with the required 'session data' as this variable also stores headers and stuff, whereas the next one doesn't
-      console.clear();
-      const session_info_data = session_info_response.data
-      console.log(session_info_data); // This is an array: [{...}]
-      
-      // Access the first element of the array using [0]
-      if (session_info_data && session_info_data.length > 0) {
-        console.log(session_info_data[0].location);
-        // return session_info_data[0];            // Returns just the specific session object
-      }
-      
-      setSessionSelectorModalVisible(false); // close the modal before leaving
-      router.push({
-        pathname: '/SessionInfo',
-        params: { apiData: JSON.stringify(session_info_data[0]) },
-      });
-      return(session_info_data);
-    } catch (e) { 
-      // error parameters to match the caught exception variable 'e'
-      console.error("API Error:", e);
-      return { error: true, msg: e.message }; 
-    }
-    
+  const openSelector = (pathname) => {
+    setDestination(pathname);
+    setSelectorVisible(true);
   };
-  
+    
   return (
   <ScrollView contentContainerStyle={styles.contentContainer}>
       <StatusBar style="auto" />
 
       <SessionSelector
-          visible={sessionSelectorModalVisible}
-          onClose={() => setSessionSelectorModalVisible(false)}
-          onGetInfo={handleGetInfo}
+        visible={selectorVisible}
+        destination={destination}
+        onClose={() => setSelectorVisible(false)}
       />
 
       <View style={styles.headerView}>
@@ -73,14 +42,14 @@ export default function App({navigation}) {
        <View style={styles.introButtonsView}>
         <Row>
           <Col span={1}>
-            <Pressable style={styles.introButton} onPress={launchSessionSelectorModal}>
+            <Pressable style={styles.introButton} onPress={() => openSelector('../SessionInfo')}>
               <Text style={styles.introButtonText}>Session Info</Text>
             </Pressable>
           </Col>
           
           <Col span={1}>
-            <Pressable style={styles.introButton} onPress={launchSessionSelectorModal}>
-              <Text style={styles.introButtonText}>Session Replay </Text>
+            <Pressable style={styles.introButton} onPress={() => openSelector('../SessionReplay')}>
+              <Text style={styles.introButtonText}>Session Replay</Text>
             </Pressable>
           </Col>
 

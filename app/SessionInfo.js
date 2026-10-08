@@ -5,21 +5,38 @@ import { Row, Col } from '../components/RowColumn.js';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+import axios from 'axios';
+
 export default function SessionInfo() {
-  const { apiData } = useLocalSearchParams();
-  const session = JSON.parse(apiData);
+  const { sessionKey } = useLocalSearchParams();
+  const [session, setSession] = useState(null);
+  const [error, setError] = useState(null);
   
-  return(
+  useEffect(() => {
+    let cancelled = false;
+    axios
+      .get('https://api.openf1.org/v1/sessions', { params: { session_key: sessionKey } })
+      .then((res) => {
+        if (cancelled) return;
+        if (res.data.length) setSession(res.data[0]);
+        else setError('Session not found');
+      })
+      .catch((e) => {
+        if (!cancelled) setError(e.message);
+      });
+    return () => { cancelled = true; };
+  }, [sessionKey]);
+
+  if (error) return <Text>{error}</Text>;
+  if (!session) return <Text>Loading...</Text>;
+
+  return (
     <SafeAreaProvider>
-        <SafeAreaView>
-
-            <SessionCard session={session}/>
-
-        </SafeAreaView>
+      <SafeAreaView>
+        <SessionCard session={session} />
+      </SafeAreaView>
     </SafeAreaProvider>
-  )
-
-
+  );
 }
 
 
