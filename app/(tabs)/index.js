@@ -75,7 +75,7 @@ export default function App({navigation}) {
 export const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
-    backgroundColor: '#ded416',
+    backgroundColor: '#680000',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
     // Changed '400px' to the unitless number 400
     minHeight: 50, 
     maxHeight: 50, 
-    backgroundColor: '#fffcfc',
+    backgroundColor: '#620000',
     alignItems: 'center',
     justifyContent: 'center',
     flexWrap: 'wrap',
@@ -123,13 +123,13 @@ export const styles = StyleSheet.create({
     backgroundColor: '#B80000',
   },
   "0.5col":  {
-    backgroundColor:  "lightblue",
+    backgroundColor:  "black",
     borderColor:  "#fff",
     borderWidth:  1,
     flex:  0.5
   },
   "1col":  {
-    backgroundColor:  "lightblue",
+    backgroundColor:  "black",
     borderColor:  "#fff",
     borderWidth:  1,
     flex:  1

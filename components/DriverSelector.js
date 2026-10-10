@@ -1,14 +1,19 @@
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
+import { router } from 'expo-router';
+
 
 export function DriverSelector({ drivers, sessionKey, onSelect }) {
   const [selectedDriver, setSelectedDriver] = useState('');
 
-  const handleConfirm = () => {
+  const handleDriverConfirm = () => {
     if (!selectedDriver) return;
     onSelect?.(selectedDriver);
+
   };
+
+  
 
   return (
     <View style={styles.container}>
@@ -24,7 +29,7 @@ export function DriverSelector({ drivers, sessionKey, onSelect }) {
       </Picker>
 
       <Pressable
-        onPress={handleConfirm}
+        onPress={handleDriverConfirm}
         style={({ pressed }) => [
           styles.button,
           { backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white' },
@@ -48,3 +53,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+

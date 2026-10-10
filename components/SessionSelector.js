@@ -59,7 +59,7 @@ export function SessionSelector({ visible, onClose, destination }) {
             router.push({
             pathname: destination,
             params: { sessionKey: String(selectedSessionKey) }, // route params are strings
-        });
+            });
     };   
     return (
         <Modal

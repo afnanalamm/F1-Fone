@@ -1,0 +1,2 @@
+Future Improvements:
+- change from "Session Info" and https://api.openf1.org/v1/sessions? to using the https://api.openf1.org/v1/meetings - which will be even better, as you can then style it as "Grand Prix Weekends"

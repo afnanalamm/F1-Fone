@@ -5,14 +5,18 @@
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
     "@react-native-picker/picker": "2.11.4",
+    "@shopify/react-native-skia": "2.6.2",
     "axios": "^1.20.0",
     "expo": "~57.0.25",
     "expo-router": "~57.0.23",
     "expo-status-bar": "~57.0.1",
+    "expo-video": "^57.0.5",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.86.3",
+    "react-native-reanimated": "4.5.1",
     "react-native-safe-area-context": "^5.10.1",
+    "react-native-skia": "^3.3.0",
     "react-native-web": "^0.21.2"
   },
   "scripts": {

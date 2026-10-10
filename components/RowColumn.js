@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
   },
 
   "0.5col":  {
-    backgroundColor:  "lightblue",
+    backgroundColor:  "black",
     borderColor:  "#fff",
     borderWidth:  1,
     flex:  1
   },
   "1col":  {
-    backgroundColor:  "lightblue",
+    backgroundColor:  "black",
     borderColor:  "#fff",
     borderWidth:  1,
     flex:  1
